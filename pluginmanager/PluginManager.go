@@ -2,16 +2,34 @@ package pluginmanager
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 	"plugin"
+
+	"github.com/martamius/AddaPlex/pluginarch"
 )
 
 // AddaplexPlugin interface for plugins
 type AddaplexPlugin interface {
 	Name() string
+	Identifier() string
+	ActionDefinitions() []pluginarch.PluginAction
 }
 
-var plugins []*AddaplexPlugin
+var plugins []AddaplexPlugin
+
+//Plugins returns a list of loaded plugins
+func Plugins() *[]AddaplexPlugin {
+	return &plugins
+}
+
+// LoadPlugins Loads a plugin
+func LoadPlugins(plugins []string) {
+	for _, name := range plugins {
+		LoadPlugin(name)
+	}
+}
 
 // LoadPlugin Loads a plugin
 func LoadPlugin(pluginName string) AddaplexPlugin {
@@ -19,7 +37,10 @@ func LoadPlugin(pluginName string) AddaplexPlugin {
 
 	var mod string
 
-	mod = "plugins/" + pluginName + ".so"
+	wd, _ := os.Executable()
+	dir := filepath.Dir(wd)
+
+	mod = filepath.Join(dir, "plugins", pluginName+".so")
 
 	// load module
 	// 1. open the so file to load the symbols
@@ -45,7 +66,9 @@ func LoadPlugin(pluginName string) AddaplexPlugin {
 		fmt.Println("unexpected type from module symbol")
 		os.Exit(1)
 	}
-	plugins = append(plugins, &plugin)
+	plugins = append(plugins, plugin)
+
+	log.Print("loaded plugin " + plugin.Name())
 
 	return plugin
 }

@@ -9,7 +9,8 @@ import (
 )
 
 type ModuleConfig struct {
-	Name string
+	Name    string
+	Enabled bool
 }
 type Config struct {
 	ServerName string `yaml:"serverName"`
@@ -18,6 +19,20 @@ type Config struct {
 }
 
 var configData Config
+
+func moduleNames() []string {
+	var names []string
+	for _, module := range configData.Modules {
+		if module.Name == "Other" {
+			continue
+		}
+		if module.Enabled {
+			names = append(names, module.Name)
+		}
+
+	}
+	return names
+}
 
 func loadConfig() {
 	configData = Config{}

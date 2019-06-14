@@ -10,8 +10,8 @@ func main() {
 	log.Print("Starting AddaPlex")
 
 	loadConfig()
-	plugin := pluginmanager.LoadPlugin("youtube")
-	log.Print("loaded plugin " + plugin.Name())
+
+	pluginmanager.LoadPlugins(moduleNames())
 
 	startHTTP()
 }

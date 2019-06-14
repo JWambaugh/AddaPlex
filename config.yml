@@ -1,4 +1,9 @@
 serverName: AddaPlex 
 listenPort: 3003
 modules:
-- name: YouTubeDownloader
+
+  - name: youtube
+    enabled: true
+
+  - name: foo
+    enabled: true
