@@ -1,0 +1,4 @@
+serverName: AddaPlex 
+listenPort: 3003
+modules:
+- name: YouTubeDownloader
