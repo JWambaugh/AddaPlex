@@ -12,6 +12,7 @@ import (
 type Config struct {
 	ServerName string `yaml:"serverName"`
 	ListenPort string `yaml:"listenPort"`
+	SharedKey  string `yaml:"sharedKey"`
 	Modules    []pluginarch.PluginConfig
 }
 

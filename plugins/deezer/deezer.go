@@ -3,7 +3,9 @@ package main
 import (
 	"io/ioutil"
 	"log"
+	"os"
 	"os/exec"
+	"path"
 
 	"github.com/martamius/AddaPlex/pluginarch"
 )
@@ -20,15 +22,12 @@ func deezerWorker(jobChan <-chan deezerJob) {
 }
 
 func download(job deezerJob) {
-	log.Print(config.Options["outputDir"])
-	out := config.Options["videoOutDir"]
-	audio := ""
-	opts := config.Options["videoOpts"]
 
-	line := "deezer-dl " + audio + " " + opts + " -o \"" + out + "\" " + job.url
+	line := "node "
 	log.Print(line)
 
-	cmd := exec.Command("bash", "-lic", line)
+	os.Chdir(config.Options["SMLoadrPath"])
+	cmd := exec.Command("node", path.Join(config.Options["SMLoadrPath"], "SMLoadr.js"), "-p", config.Options["outputPath"], "-q", config.Options["quality"], "-u", job.url)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Printf("%s", err)
@@ -62,7 +61,7 @@ var jobChannel chan deezerJob
 
 func (y deezerPlugin) Init(conf pluginarch.PluginConfig) {
 	config = conf
-	log.Printf("%v", config)
+	// log.Printf("%v", config)
 	// log.Print("Deezer: Checking for deezer-dl")
 	// cmd := exec.Command("deezer-dl", "--version")
 	// err := cmd.Run()
@@ -95,7 +94,7 @@ func (y deezerPlugin) ActionDefinitions() []pluginarch.PluginAction {
 		Name: "Download Music",
 		Type: "url",
 		Options: map[string]string{
-			"regex": "deezer.com/us/(artist|album)",
+			"regex": "deezer.com/us/(artist|album|track)",
 		},
 	}
 
@@ -113,7 +112,7 @@ func (y deezerPlugin) PerformAction(action string, options map[string]string) (s
 
 		//queue a new job
 		jobChannel <- job
-		return "Ok, Ill download that video", true
+		return "Ok, Ill download that", true
 
 	default:
 		return "Unkown action", false

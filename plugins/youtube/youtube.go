@@ -32,7 +32,7 @@ func download(job youTubeJob) {
 	}
 
 	line := "youtube-dl " + audio + " " + opts + " -o \"" + out + "\" " + job.url
-	log.Print(line)
+	//log.Print(line)
 	cmd := exec.Command("bash", "-lic", line)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -67,7 +67,7 @@ var jobChannel chan youTubeJob
 
 func (y youTubePlugin) Init(conf pluginarch.PluginConfig) {
 	config = conf
-	log.Printf("%v", config)
+	//log.Printf("%v", config)
 	log.Print("YouTube: Checking for youtube-dl")
 	cmd := exec.Command("youtube-dl", "--version")
 	err := cmd.Run()
