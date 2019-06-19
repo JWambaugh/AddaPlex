@@ -5,33 +5,30 @@ import (
 	"log"
 	"os"
 
+	"github.com/martamius/AddaPlex/pluginarch"
 	"gopkg.in/yaml.v2"
 )
 
-type ModuleConfig struct {
-	Name    string
-	Enabled bool
-}
 type Config struct {
 	ServerName string `yaml:"serverName"`
 	ListenPort string `yaml:"listenPort"`
-	Modules    []ModuleConfig
+	Modules    []pluginarch.PluginConfig
 }
 
 var configData Config
 
-func moduleNames() []string {
-	var names []string
+func pluginConfigs() []pluginarch.PluginConfig {
+	var plugins []pluginarch.PluginConfig
 	for _, module := range configData.Modules {
 		if module.Name == "Other" {
 			continue
 		}
 		if module.Enabled {
-			names = append(names, module.Name)
+			plugins = append(plugins, module)
 		}
 
 	}
-	return names
+	return plugins
 }
 
 func loadConfig() {
@@ -51,7 +48,7 @@ func loadConfig() {
 	}
 	// fmt.Printf("--- t:\n%v\n\n", configData)
 
-	module := ModuleConfig{Name: "Other"}
+	module := pluginarch.PluginConfig{Name: "Other"}
 	configData.Modules = append(configData.Modules, module)
 
 	// d, err := yaml.Marshal(&configData)

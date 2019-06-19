@@ -16,6 +16,7 @@ type AddaplexPlugin interface {
 	Identifier() string
 	ActionDefinitions() []pluginarch.PluginAction
 	PerformAction(string, map[string]string) (string, bool)
+	Init(config pluginarch.PluginConfig)
 }
 
 var plugins []AddaplexPlugin
@@ -26,16 +27,17 @@ func Plugins() *[]AddaplexPlugin {
 }
 
 // LoadPlugins Loads a plugin
-func LoadPlugins(plugins []string) {
-	for _, name := range plugins {
-		LoadPlugin(name)
+func LoadPlugins(plugins []pluginarch.PluginConfig) {
+	for _, plugin := range plugins {
+		LoadPlugin(plugin)
 	}
 }
 
 // LoadPlugin Loads a plugin
-func LoadPlugin(pluginName string) AddaplexPlugin {
+func LoadPlugin(config pluginarch.PluginConfig) AddaplexPlugin {
 	// determine plugin to load
 
+	pluginName := config.Name
 	var mod string
 
 	wd, _ := os.Executable()
@@ -68,7 +70,7 @@ func LoadPlugin(pluginName string) AddaplexPlugin {
 		os.Exit(1)
 	}
 	plugins = append(plugins, plugin)
-
+	plugin.Init(config)
 	log.Print("loaded plugin " + plugin.Name())
 
 	return plugin

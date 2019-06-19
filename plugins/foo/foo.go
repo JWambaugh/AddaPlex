@@ -5,6 +5,10 @@ import "github.com/martamius/AddaPlex/pluginarch"
 type fooPlugin struct {
 }
 
+func (y fooPlugin) Init(config pluginarch.PluginConfig) {
+
+}
+
 func (y fooPlugin) Name() string {
 	return "Foo"
 }

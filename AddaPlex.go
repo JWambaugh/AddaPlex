@@ -11,7 +11,7 @@ func main() {
 
 	loadConfig()
 
-	pluginmanager.LoadPlugins(moduleNames())
+	pluginmanager.LoadPlugins(pluginConfigs())
 
 	startHTTP()
 }

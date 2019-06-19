@@ -1,9 +1,15 @@
-serverName: AddaPlex 
+serverName: RoughNReady AddaPlex 
 listenPort: 3003
 modules:
 
   - name: youtube
     enabled: true
+    options: 
+      videoOutDir: "/Users/jordan/source/AddaPlex/downloads/%(title)s.%(ext)s"
+      videoOpts: ""
+      audioOutDir: "/Users/jordan/source/AddaPlex/downloads/%(title)s.%(ext)s"
+      audioOpts: "--audio-format vorbis"
+    
 
   - name: foo
-    enabled: true
+    enabled: false
