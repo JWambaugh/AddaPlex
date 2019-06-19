@@ -32,8 +32,8 @@ func download(job youTubeJob) {
 	}
 
 	line := "youtube-dl " + audio + " " + opts + " -o \"" + out + "\" " + job.url
-	//log.Print(line)
-	cmd := exec.Command("bash", "-lic", line)
+	log.Print(line)
+	cmd := exec.Command("bash", "-c", line)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Printf("%s", err)
