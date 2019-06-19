@@ -9,6 +9,11 @@ modules:
       videoOpts: ""
       audioOutDir: "/Users/jordan/source/AddaPlex/downloads/%(title)s.%(ext)s"
       audioOpts: "--audio-format vorbis"
+  
+  - name: deezer
+    enabled: true
+    options: 
+      
     
 
   - name: foo
