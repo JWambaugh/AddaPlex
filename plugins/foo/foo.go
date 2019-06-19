@@ -6,7 +6,7 @@ type fooPlugin struct {
 }
 
 func (y fooPlugin) Name() string {
-	return "Foo - I just say foo!"
+	return "Foo"
 }
 
 func (y fooPlugin) Identifier() string {
@@ -14,10 +14,15 @@ func (y fooPlugin) Identifier() string {
 }
 
 func (y fooPlugin) ActionDefinitions() []pluginarch.PluginAction {
-	a := pluginarch.PluginAction{}
 	s := make([]pluginarch.PluginAction, 1)
-	s[0] = a
+	s[0] = pluginarch.PluginAction{
+		Name: "Say Foo",
+		Type: "url",
+	}
 	return s
+}
+func (y fooPlugin) PerformAction(action string, options map[string]string) (string, bool) {
+	return "FOO!" + options["url"], true
 }
 
 // Plugin the plugin object to export

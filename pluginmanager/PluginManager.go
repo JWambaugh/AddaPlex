@@ -15,6 +15,7 @@ type AddaplexPlugin interface {
 	Name() string
 	Identifier() string
 	ActionDefinitions() []pluginarch.PluginAction
+	PerformAction(string, map[string]string) (string, bool)
 }
 
 var plugins []AddaplexPlugin
