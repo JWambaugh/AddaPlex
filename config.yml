@@ -8,7 +8,7 @@ modules:
     options: 
       # directory and file pattern for output files
       videoOutDir: "/Users/jordan/source/AddaPlex/downloads/%(title)s.%(ext)s"
-      videoOpts: ""
+      videoOpts: "-f 'best[height=720]' --no-part"
       audioOutDir: "/Users/jordan/source/AddaPlex/downloads/%(title)s.%(ext)s"
       audioOpts: "--audio-format vorbis"
   
