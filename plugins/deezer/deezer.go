@@ -94,7 +94,7 @@ func (y deezerPlugin) ActionDefinitions() []pluginarch.PluginAction {
 		Name: "Download Music",
 		Type: "url",
 		Options: map[string]string{
-			"regex": "deezer.com/us/(artist|album|track)",
+			"regex": "deezer.com/us/(artist|album|track|playlist)",
 		},
 	}
 
