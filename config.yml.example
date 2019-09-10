@@ -1,0 +1,25 @@
+serverName: RoughNReady AddaPlex
+listenPort: 3003
+sharedKey: abc
+modules:
+
+  - name: youtube
+    enabled: true
+    options:
+      # directory and file pattern for output files
+      videoOutDir: "/opt/plex/media/videos/%(title)s.%(ext)s"
+      videoOpts: "-f 'best[height<=720]' --no-part"
+      audioOutDir: "/opt/plex/media/music/%(title)s.%(ext)s"
+      audioOpts: "--audio-format mp3"
+
+  - name: deezer
+    enabled: true
+    options:
+      SMLoadrPath: "/opt/SMLoadr"
+      outputPath: "/opt/plex/media/music/"
+      # quality can be MP3_128 / MP3_320 / FLAC
+      quality: MP3_128
+
+  - name: foo
+    enabled: false
+
