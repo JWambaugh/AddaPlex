@@ -169,7 +169,7 @@ func startHTTP() {
 
 	log.Print("Listening on port " + configData.ListenPort + " as " + configData.ServerName)
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"chrome-extension://kpgmafgkfjhhoacjfhaijbmfanjgafkh"},
+		AllowedOrigins:   []string{"chrome-extension://dgnlchffpfppiohcconpfoogcanhiafj"},
 		AllowCredentials: true,
 		AllowedHeaders:   []string{"X-Signature"},
 		// Enable Debugging for testing, consider disabling in production
